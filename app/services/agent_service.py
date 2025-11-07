@@ -4,8 +4,8 @@ Handles creation of LLM agents (Model x Style combinations).
 """
 
 from typing import List, Dict, Any
-from .schemas import Agent, AgentCreate
-from .trading_styles import TRADING_STYLES, LLM_MODELS
+from ..core.schemas import Agent, AgentCreate
+from ..core.trading_styles import TRADING_STYLES, LLM_MODELS
 
 
 class AgentService:

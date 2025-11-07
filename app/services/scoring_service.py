@@ -6,7 +6,7 @@ Handles weekly standings, rankings, and performance metrics.
 from typing import List, Dict, Any, Optional
 from datetime import datetime, date
 
-from .schemas import LeagueAgent
+from ..core.schemas import LeagueAgent
 
 
 class ScoringService:

@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from .trading_api import router as trading_router
+from .api.trading_api import router as trading_router
 
 
 load_dotenv()

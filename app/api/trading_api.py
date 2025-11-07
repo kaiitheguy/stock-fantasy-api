@@ -10,7 +10,7 @@ import json
 from fastapi import APIRouter, HTTPException, Query, Body
 from fastapi.responses import JSONResponse
 
-from .schemas import (
+from ..core.schemas import (
     Agent,
     AgentCreate,
     League,
@@ -19,10 +19,10 @@ from .schemas import (
     LeagueAgent,
     Trade,
 )
-from .agent_service import AgentService
-from .llm_service import LLMOrchestrator
-from .trading_engine import TradingEngine
-from .scoring_service import ScoringService
+from ..services.agent_service import AgentService
+from ..core.llm_service import LLMOrchestrator
+from ..core.trading_engine import TradingEngine
+from ..services.scoring_service import ScoringService
 
 
 router = APIRouter(prefix="/api/trading", tags=["trading"])

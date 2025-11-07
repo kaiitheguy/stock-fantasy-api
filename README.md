@@ -83,16 +83,24 @@ League Standings Update
 Database Storage
 ```
 
-## 💻 Core Services
+## 💻 Project Structure
 
-| Service | Purpose |
-|---------|---------|
-| `market_data_service.py` | Yahoo Finance data + technical indicators |
-| `llm_service.py` | LLM orchestration (OpenAI, Anthropic, DeepSeek) |
-| `trading_engine.py` | Paper trading simulation |
-| `scoring_service.py` | P&L calculation + standings |
-| `agent_service.py` | Agent generation (25+ combinations) |
-| `trading_api.py` | 16 REST API endpoints |
+```
+app/
+├── core/                     # Core services and models
+│   ├── market_data_service.py   # Yahoo Finance + indicators
+│   ├── llm_service.py           # OpenAI, Anthropic, DeepSeek
+│   ├── trading_engine.py        # Paper trading simulator
+│   ├── trading_styles.py        # 5 trading strategies
+│   └── schemas.py               # Pydantic models
+├── services/                # Business logic
+│   ├── agent_service.py        # Agent generation
+│   └── scoring_service.py      # P&L + standings
+├── api/                     # REST endpoints
+│   └── trading_api.py          # 16 API endpoints
+└── tests/
+    └── playground.ipynb        # Integration tests
+```
 
 ## 🤖 Trading Styles
 
