@@ -50,13 +50,13 @@ USE_LOCAL_STORAGE=true        # demo JSON (default)
 
 ```mermaid
 flowchart TD
-  FE[Frontend / mobile app / notebook] -->|HTTP JSON| FastAPI[FastAPI app]
-  FastAPI --> Router[trading_api router]
-  Router -->|agent catalog| AgentSvc[AgentService + trading_styles]
-  Router -->|read/write| DataSvc[DataService (local JSON)]
-  Router -->|LLM probes| LLM[LLMOrchestrator]
-  DataSvc --> Storage[data json files]
-  LLM --> OpenAI[OpenAI / DeepSeek / Anthropic APIs]
+  FE[Frontend/mobile/notebook] -->|HTTP JSON| API[FastAPI app]
+  API --> Router[trading_api]
+  Router --> Agents[AgentService + styles]
+  Router --> Storage[DataService JSON]
+  Router --> LLM[LLMOrchestrator]
+  Storage --> Files[data/*.json]
+  LLM --> Providers[OpenAI / DeepSeek / Anthropic]
 ```
 
 ## Collaboration & Ownership
@@ -74,10 +74,10 @@ flowchart TD
 ```mermaid
 flowchart LR
   API[FastAPI + trading_api] --> LLM[LLM & Agents]
-  API --> Storage[Storage Abstraction]
-  LLM --> Orchestrator[LLMOrchestrator + styles]
-  Storage --> Local[DataService (JSON)]
-  Storage --> Supabase[SupabaseDataService (owner: data track)]
+  API --> Store[Storage abstraction]
+  LLM --> Styles[LLMOrchestrator + styles]
+  Store --> Local[DataService JSON]
+  Store --> Supa[SupabaseDataService]
 ```
 
 ## How It Works
