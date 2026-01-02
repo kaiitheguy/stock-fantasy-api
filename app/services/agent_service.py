@@ -4,7 +4,6 @@ Handles creation of LLM agents (Model x Style combinations).
 """
 
 from typing import List, Dict, Any
-from ..core.schemas import Agent, AgentCreate
 from ..core.trading_styles import TRADING_STYLES, LLM_MODELS
 
 
@@ -23,29 +22,27 @@ class AgentService:
         self.llm_models = LLM_MODELS
 
     def generate_all_agents(self) -> List[Dict[str, Any]]:
-        """
-        Generate all agent combinations (Model x Style).
-        For MVP, generates 5 models x 5 styles = 25 agents.
-
-        Returns:
-            List of agent configurations
-        """
+        """Generate the 10 canonical agents (5 styles × 2 models)."""
         agents = []
 
+        agent_id = 1
         for model_name, model_config in self.llm_models.items():
             for style_name, style_config in self.trading_styles.items():
                 agent = {
+                    "id": agent_id,
                     "model_name": model_name,
+                    "model_provider": model_config.get("display_name", model_name),
                     "style_name": style_name,
+                    "style_description": style_config["description"],
                     "system_prompt": style_config["system_prompt"],
                     "cost_tier": model_config["cost_tier"],
-                    "description": f"{style_config['description']} ({model_name})",
                 }
                 agents.append(agent)
+                agent_id += 1
 
         return agents
 
-    async def create_agent(self, agent_data: AgentCreate) -> Agent:
+    async def create_agent(self, agent_data):
         """
         Create a single agent in the database.
 
@@ -67,34 +64,34 @@ class AgentService:
         }).execute()
 
         if response.data:
-            return Agent(**response.data[0])
+            return response.data[0]
         raise ValueError("Failed to create agent")
 
-    async def get_agent(self, agent_id: int) -> Agent:
+    async def get_agent(self, agent_id: int):
         """Get agent by ID"""
         if not self.db:
             raise ValueError("Database client not initialized")
 
         response = await self.db.table("agents").select("*").eq("id", agent_id).single().execute()
-        return Agent(**response.data)
+        return response.data
 
-    async def list_agents(self, limit: int = 100) -> List[Agent]:
+    async def list_agents(self, limit: int = 100):
         """List all agents"""
         if not self.db:
             raise ValueError("Database client not initialized")
 
         response = await self.db.table("agents").select("*").limit(limit).execute()
-        return [Agent(**row) for row in response.data]
+        return response.data
 
-    async def get_agents_by_cost_tier(self, cost_tier: str) -> List[Agent]:
+    async def get_agents_by_cost_tier(self, cost_tier: str):
         """Get agents filtered by cost tier"""
         if not self.db:
             raise ValueError("Database client not initialized")
 
         response = await self.db.table("agents").select("*").eq("cost_tier", cost_tier).execute()
-        return [Agent(**row) for row in response.data]
+        return response.data
 
-    async def get_agent_by_model_style(self, model_name: str, style_name: str) -> Agent:
+    async def get_agent_by_model_style(self, model_name: str, style_name: str):
         """Get agent by model and style combination"""
         if not self.db:
             raise ValueError("Database client not initialized")
@@ -107,7 +104,7 @@ class AgentService:
             .single()
             .execute()
         )
-        return Agent(**response.data)
+        return response.data
 
     def get_style_prompt(self, style_name: str) -> str:
         """Get system prompt for a trading style"""

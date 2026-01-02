@@ -151,9 +151,6 @@ TRADING_STYLES = {
 
 # LLM Models to use (with tiers for cost management)
 LLM_MODELS = {
-    "gpt-4.1": {"provider": "openai", "cost_tier": "expensive", "max_tokens": 500},
-    "gpt-3.5-turbo-1106": {"provider": "openai", "cost_tier": "cheap", "max_tokens": 500},
-    "claude-3-5-sonnet-20241022": {"provider": "anthropic", "cost_tier": "medium", "max_tokens": 500},
-    "claude-3-haiku-20240307": {"provider": "anthropic", "cost_tier": "cheap", "max_tokens": 500},
-    "deepseek-chat": {"provider": "deepseek", "cost_tier": "cheap", "max_tokens": 500},
+    "gpt-4o-mini": {"provider": "openai", "display_name": "ChatGPT", "cost_tier": "medium", "max_tokens": 500},
+    "deepseek-chat": {"provider": "deepseek", "display_name": "DeepSeek", "cost_tier": "cheap", "max_tokens": 500},
 }

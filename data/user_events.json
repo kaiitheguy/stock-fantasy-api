@@ -1,0 +1,50 @@
+[
+  {
+    "event_id": 1,
+    "user_id": 1,
+    "action": "select",
+    "agent_ids": [
+      1,
+      2,
+      3
+    ],
+    "month_number": 202512,
+    "timestamp": "2025-12-26T05:51:46.744671"
+  },
+  {
+    "event_id": 2,
+    "user_id": 10,
+    "action": "select",
+    "agent_ids": [
+      3,
+      8,
+      1
+    ],
+    "month_number": 202512,
+    "timestamp": "2025-12-26T06:38:51.973429"
+  },
+  {
+    "event_id": 3,
+    "user_id": 11,
+    "action": "select",
+    "agent_ids": [
+      3,
+      8,
+      1
+    ],
+    "month_number": 202512,
+    "timestamp": "2025-12-26T06:40:33.670105"
+  },
+  {
+    "event_id": 4,
+    "user_id": 12,
+    "action": "select",
+    "agent_ids": [
+      3,
+      8,
+      1
+    ],
+    "month_number": 202512,
+    "timestamp": "2025-12-26T06:45:15.860743"
+  }
+]
