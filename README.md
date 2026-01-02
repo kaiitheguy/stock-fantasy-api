@@ -51,11 +51,11 @@ USE_LOCAL_STORAGE=true        # demo JSON (default)
 ```mermaid
 flowchart TD
   FE[Frontend / mobile app / notebook] -->|HTTP JSON| FastAPI[FastAPI app]
-  FastAPI --> Router[trading_api router (/api)]
-  Router -->|agent catalog| AgentSvc[AgentService<br/>trading_styles.py]
-  Router -->|read/write| DataSvc[DataService<br/>local JSON]
+  FastAPI --> Router[trading_api router]
+  Router -->|agent catalog| AgentSvc[AgentService + trading_styles]
+  Router -->|read/write| DataSvc[DataService (local JSON)]
   Router -->|LLM probes| LLM[LLMOrchestrator]
-  DataSvc --> Storage[data/*.json files<br/>(demo mode)]
+  DataSvc --> Storage[data json files]
   LLM --> OpenAI[OpenAI / DeepSeek / Anthropic APIs]
 ```
 
@@ -73,7 +73,7 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-  API[FastAPI / trading_api] --> LLM[LLM & Agents]
+  API[FastAPI + trading_api] --> LLM[LLM & Agents]
   API --> Storage[Storage Abstraction]
   LLM --> Orchestrator[LLMOrchestrator + styles]
   Storage --> Local[DataService (JSON)]
