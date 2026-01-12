@@ -11,7 +11,7 @@ from typing import Any, Dict, List, Optional
 
 from datetime import datetime
 
-from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Request
 from pydantic import BaseModel, EmailStr, Field
 
 from ..core.llm_service import LLMOrchestrator
@@ -19,10 +19,14 @@ from ..services.agent_service import AgentService
 from ..services.storage_factory import get_data_service
 
 
-def require_internal_key(x_internal_key: Optional[str] = Header(default=None)) -> None:
+def require_internal_key(request: Request, x_internal_key: Optional[str] = Header(default=None)) -> None:
     """Simple header-based auth for TestFlight builds."""
     expected = os.environ.get("INTERNAL_API_KEY")
-    if expected and x_internal_key != expected:
+    if not expected:
+        return
+    if request.url.path == "/api/health":
+        return
+    if x_internal_key != expected:
         raise HTTPException(status_code=401, detail="Invalid internal API key")
 
 
